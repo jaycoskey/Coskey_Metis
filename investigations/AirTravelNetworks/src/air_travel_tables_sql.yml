@@ -1,0 +1,49 @@
+---
+Airline: |-
+  CREATE TABLE IF NOT EXISTS Airline (
+    open_flights_airline_id integer PRIMARY KEY,
+    name      varchar(100) NOT NULL,
+    alias     varchar(50),
+    iata      char(8),  -- TODO: Determine min value
+    icao      char(8),  -- TODO: Determine min value
+    callsign  varchar(50),
+    country   varchar(50),
+    active    char(1) NOT NULL
+  );
+Airport: |-
+  CREATE TABLE IF NOT EXISTS Airport (
+    open_flights_airport_id integer PRIMARY KEY,
+    name          varchar(100) NOT NULL,
+    city          varchar(50) NOT NULL,
+    country       varchar(50) NOT NULL,
+    iata          char(3),
+    icao          char(4),
+    latitude      varchar(50) NOT NULL,  -- numeric NOT NULL,
+    longitude     varchar(50) NOT NULL,  -- numeric NOT NULL,
+    altitude      varchar(50) NOT NULL,  -- numeric NOT NULL,
+    timezone      varchar(50),           -- numeric,
+    dst           char(2),
+    timezone_olson_name varchar(50),
+    airport_type  varchar(10),
+    source        varchar(15)
+  );
+Country: |-
+  CREATE TABLE IF NOT EXISTS Country (
+    name          varchar(50) PRIMARY KEY,
+    code1         char(2) NOT NULL,
+    code_iso_3166 char(2),
+    country_group char(2)
+  );
+Route: |-
+  CREATE TABLE IF NOT EXISTS Route (
+    -- id                   SERIAL PRIMARY KEY,
+    airline                 char(3) NOT NULL,
+    open_flights_airline_id varchar(50),          -- integer
+    source_airport          varchar(50) NOT NULL,
+    source_airport_id       varchar(50),          -- integer
+    destination_airport     varchar(50) NOT NULL,
+    destination_airport_id  varchar(50),          -- integer
+    codeshare               char(1) NOT NULL,
+    stops                   integer NOT NULL,
+    equipment               varchar(50) NOT NULL
+  );
